@@ -61,7 +61,7 @@
                 <!--================================-->
                 <div class="navbar-header">
 
-                    <a href="#!" class="navbar-brand">
+                    <a href="{% url 'articulo:index'%}" class="navbar-brand">
                         <div class="brand-title">
 							<i class="ion-home 	icon-wrap-lg" ></i> HOME
                         </div>
@@ -307,6 +307,9 @@
                 <!--End breadcrumb-->
 
             </div>
+            {% block contenido %}
+
+            {% endblock %}
             <!--===================================================-->
             <!--END CONTENT CONTAINER-->
 
@@ -351,10 +354,12 @@
                                 <!--First tab-->
                                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                                 <div class="tab-pane fade in active" id="demo-asd-tab-1">
+                                    {% block crearArticulo %}
                                     <p class="pad-all text-lg">First tab</p>
                                     <div class="pad-hor">
                                         CREAR UN ARTICULO .
                                     </div>
+                                    {% endblock %}
                                 </div>
                                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                                 <!--End first tab-->
