@@ -1,59 +1,37 @@
 {% extends 'layouts/layout.html' %}
-{% block contenido%}
-<div class="mar-all center pad-all bord-all col-sm-12">
-    <!--===================================================-->
-    <div class="panel col-sm-3" >
-        <div class="panel-body text-center bg-danger">
-            <i class="demo-pli-speech-bubble-7 icon-5x"></i>
-        </div>
-        <div class="pad-all text-center">
-            <p class="text-semibold text-lg mar-no text-main">HISTORIA</p>
-            <p class="h2 text-thin mar-no">20</p>
-            <p class="text-sm text-overflow pad-top">
-                <span class="text-bold">Articulos</span>
-            </p>
-            <p class="text-sm text-overflow pad-top">
-                <span class="text-bold">400</span> Comentarios
-            </p>
-        </div>
-    </div>
-<!--===================================================-->
-
-<!--===================================================-->
-    <div class="panel col-sm-3" >
-        <div class="panel-body text-center bg-danger">
-            <i class="demo-pli-speech-bubble-7 icon-5x"></i>
-        </div>
-        <div class="pad-all text-center">
-            <p class="text-semibold text-lg mar-no text-main">CIENCIA</p>
-            <p class="h2 text-thin mar-no">10</p>
-            <p class="text-sm text-overflow pad-top">
-                <span class="text-bold">Articulos</span>
-            </p>
-            <p class="text-sm text-overflow pad-top">
-                <span class="text-bold">40</span> Comentarios
-            </p>
-        </div>
-    </div>
-<!--===================================================-->
-</div>
-
-{% endblock%}
-{% block crearArticulo %}
-    <div class="col-ms-6">
-        <form method="post" file="true">
-
-        {% csrf_token %}
-        <p> TITULO: {{ form.titulo }}</p>
-        <p> CONTENIDO: {{ form.contenido }}</p>
-         <p> IMAGEN: {{ form.imagen }}</p>
-        <p> FECHA PUBLICACION: {{ form.fecha_publicacion }}</p>
-        <p> FECHA VENCIMIENTO: {{ form.fecha_vencimiento }}</p>
-        <p> CATEGORIA: {{ form.tag }}</p>
-
-            <button class="btn" type="submit"  > Registrar</button>
-
-        </form>
-    </div>
-
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'articulo:index'%}">Home</a></li>
+    </ol>
 {% endblock %}
+{% block contenido%}
+
+<div class="container mar-all center pad-all bord-all col-sm-12 ">
+{% if lista %}
+
+    {% for tag,c_articulos in lista %}
+        <!--===================================================-->
+    <a href="{% url 'articulo:listar' tag.id %}">
+        <div class="panel col-sm-3 pad-all mar-all" >
+            <div class="panel-body text-center bg-danger">
+                <i class="demo-pli-speech-bubble-7 icon-5x"></i>
+            </div>
+            <div class="pad-all text-center">
+                <p class="text-semibold text-lg mar-no text-main">{{tag.nombre}}</p>
+                <p class="h2 text-thin mar-no">{{c_articulos}}</p>
+                <p class="text-sm text-overflow pad-top">
+                    <span class="text-bold">Articulos</span>
+                </p>
+                <p class="text-sm text-overflow pad-top">
+                    <span class="text-bold">400</span> Comentarios
+                </p>
+            </div>
+        </div>
+        <!--===================================================-->
+      </a>
+    {% endfor %}
+{% endif %}
+</div>
+{% endblock%}
+
+

@@ -1,0 +1,38 @@
+{% extends 'layouts/layout.html' %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+         <li><a href="#">Home</a></li>
+        <li><a href="#">Articulos</a></li>
+    </ol>
+{% endblock%}
+
+{% block contenido%}
+
+    <!-- Timeline -->
+    <!--===================================================-->
+{% for articulo in articulos%}
+       <div class="timeline">
+	       <!-- Timeline header -->
+		      <div class="timeline-header">
+		          <div class="timeline-header-title bg-primary">{{articulo.titulo}}</div>
+			  </div>
+
+			  <div class="timeline-entry">
+			      <div class="timeline-stat">
+				      <div class="timeline-icon"></div>
+					      <div class="timeline-time"><a href="#" class="btn-link text-main text-bold">PUBLICADO</a><BR>{{articulo.fecha_publicacion}}</div>
+					  </div>
+					  <div class="timeline-label">
+					     <p class="mar-no pad-btm"><a href="#" class="btn-link text-main text-bold">EXPIRA</a> {{articulo.fecha_vencimiento}}.<a href="#" class="text-semibold"><i> El blog del Saber</i></a></p>
+					      <blockquote class="bq-sm bq-open mar-no">{{articulo.contenido}}</blockquote>
+					  </div>
+              </div>
+
+       </div>
+{%  endfor %}
+					        <!--===================================================-->
+					        <!-- End Timeline -->
+
+
+{% endblock%}

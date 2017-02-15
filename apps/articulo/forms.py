@@ -26,9 +26,9 @@ class articuloForm(forms.ModelForm):
 
         widgets={
             'titulo':forms.TextInput(attrs={'class':'form-control'}),
-            'contenido':forms.Textarea(attrs={'class':'form-control'}),
+            'contenido':forms.Textarea(attrs={'class':'form-control '}),
             'imagen':forms.FileInput(),
-            'fecha_publicacion': forms.SelectDateWidget(),
-            'fecha_vencimiento':forms.SelectDateWidget(),
-            'Tag':forms.CheckboxSelectMultiple(),
+            'fecha_publicacion': forms.TextInput(attrs={'class':'text-dark','readonly': 'true',}),
+            'fecha_vencimiento':forms.SelectDateWidget(attrs={'class':'text-dark'}),
+            'Tag':forms.CheckboxSelectMultiple(attrs={'class':'text-dark'}),
         }

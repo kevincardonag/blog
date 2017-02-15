@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 
@@ -9,8 +10,8 @@ class Tag(models.Model):
 class Articulo(models.Model):
     titulo = models.CharField(max_length=50)
     contenido=models.TextField()
-    imagen=models.ImageField(upload_to='media/pictures',blank=True,null=True)
-    fecha_publicacion=models.DateField(null=True,blank=True)
+    imagen=models.ImageField(upload_to='media/pictures/',blank=True,null=True)
+    fecha_publicacion=models.DateField(default=datetime.datetime.now().date)
     fecha_vencimiento=models.DateField(null=True,blank=True)
     tag = models.ManyToManyField(Tag)
     def __str__(self):
