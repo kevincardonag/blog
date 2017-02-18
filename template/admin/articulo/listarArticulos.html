@@ -2,37 +2,40 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-         <li><a href="#">Home</a></li>
-        <li><a href="#">Articulos</a></li>
+         <li><a href="{% url 'articulo:index' %}">Home</a></li>
     </ol>
 {% endblock%}
 
 {% block contenido%}
+{%  if articulos %}
 
-    <!-- Timeline -->
-    <!--===================================================-->
-{% for articulo in articulos%}
-       <div class="timeline">
-	       <!-- Timeline header -->
-		      <div class="timeline-header">
-		          <div class="timeline-header-title bg-primary">{{articulo.titulo}}</div>
-			  </div>
+	{% for articulo in articulos%}
+		<a href="{% url 'articulo:mostrar' articulo.id %}">
+       		<div class="timeline">
+	       		<!-- Timeline header -->
+		      		<div class="timeline-header">
+		         		 <div class="timeline-header-title bg-primary">{{articulo.titulo|upper}}</div>
+			  		</div>
 
-			  <div class="timeline-entry">
-			      <div class="timeline-stat">
-				      <div class="timeline-icon"></div>
-					      <div class="timeline-time"><a href="#" class="btn-link text-main text-bold">PUBLICADO</a><BR>{{articulo.fecha_publicacion}}</div>
-					  </div>
-					  <div class="timeline-label">
-					     <p class="mar-no pad-btm"><a href="#" class="btn-link text-main text-bold">EXPIRA</a> {{articulo.fecha_vencimiento}}.<a href="#" class="text-semibold"><i> El blog del Saber</i></a></p>
-					      <blockquote class="bq-sm bq-open mar-no">{{articulo.contenido}}</blockquote>
-					  </div>
-              </div>
-
-       </div>
-{%  endfor %}
-					        <!--===================================================-->
-					        <!-- End Timeline -->
-
-
+			  		<div class="timeline-entry">
+			      		<div class="timeline-stat">
+				      		<div class="timeline-icon"></div>
+					      		<div class="timeline-time"><a href="#" class="btn-link text-main text-bold">PUBLICADO</a><BR>{{articulo.fecha_publicacion}}</div>
+						</div>
+					  	<div class="timeline-label">
+					    	 <p class="mar-no pad-btm"><a href="#" class="btn-link text-main text-bold">EXPIRA</a> {{articulo.fecha_vencimiento}}.<a href="#" class="text-semibold"><i> El blog del Saber</i></a></p>
+							<blockquote class="bq-sm bq-open mar-no">{{articulo.contenido|truncatechars:100}} </blockquote>
+					  	</div>
+              		</div>
+       		</div>
+		</a>
+	{%  endfor %}
+{% else %}
+<h2>NO EXISTEN ARTICULOS PARA ESTE POST.</h2>
+{% endif%}					        <!--===================================================-->	<!-- End Timeline -->
 {% endblock%}
+
+
+
+
+

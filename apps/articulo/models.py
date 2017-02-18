@@ -10,9 +10,10 @@ class Tag(models.Model):
 class Articulo(models.Model):
     titulo = models.CharField(max_length=50)
     contenido=models.TextField()
-    imagen=models.ImageField(upload_to='media/pictures/',blank=True,null=True)
+    imagen=models.ImageField(upload_to='pictures',blank=True,null=True)
     fecha_publicacion=models.DateField(default=datetime.datetime.now().date)
     fecha_vencimiento=models.DateField(null=True,blank=True)
+    estado=models.BooleanField(default=True)
     tag = models.ManyToManyField(Tag)
     def __str__(self):
         return "{}".format(self.titulo)

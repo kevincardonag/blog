@@ -1,0 +1,58 @@
+{% extends 'layouts/layout.html' %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'articulo:index'%}">Home</a></li>
+        <li><a href="#">Articulos</a></li>
+        <li><a href="#">Articulo</a></li>
+    </ol>
+{% endblock%}
+
+{% block contenido%}
+{% include 'admin/articulo/modal2.html' %}
+<div class="col-sm-12 eq-box-sm">
+
+    <!--Panel with Footer-->
+    <!--===================================================-->
+    <div class="panel" id="demo-panel-w-alert">
+        <div class="panel-heading">
+            <h3 class="panel-title bg-gray-light">{{articulo.titulo|upper}}
+            </h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list group">
+                <li class="list-group-item"><h4><p class="text-semibold text-main ">Contenido.</p></h4>
+                <textarea readonly rows="8" style="width:100%">{{articulo.contenido}}</textarea> </li>
+
+                <li class="list-group-item"> <h4><p class="text-semibold text-main">Imagen.</p></h4>
+                <img src="{{articulo.imagen}}"> {{articulo.imagen}}</li>
+
+                <li class="list-group-item"> <p>
+                <h4><p class="text-semibold text-main">Fecha Publicacion</p></h4> {{articulo.fecha_publicacion}}
+                <h4><p class="text-semibold text-main">Fecha Vencimiento</p></h4>{{articulo.fecha_vencimiento}}
+            </p></li>
+            </ul>
+
+        </div>
+        <div class="panel-footer bg-gray-ligth">
+            <div class="row">
+                <div class="col-md-offset-9">
+                    <button id="demo-panel-alert2" class="btn btn-warning">Desactivar</button>
+                    <!--<button id="abrirModal"class="btn btn-primary" onclick="editarArticulo()" data-ajax-target="{% url 'articulo:mostrar' articulo.id %}">
+                        Modificar</button>-->
+
+                    <button id="abrirModal" data-target="#demo-default-modal" class="btn btn-primary" >
+                        Modificar</button>
+                </div>
+            </div>
+
+        </div>
+        <input type="hidden" id="id_articulo" value="{{articulo.id}}">
+    </div>
+    <!--===================================================-->
+    <!--End Panel with Footer-->
+</div>
+
+
+{% endblock%}
+

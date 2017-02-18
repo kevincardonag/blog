@@ -1,0 +1,38 @@
+
+<div class="modal fade" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" id="formEditar" action="" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <!--Modal header-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                        <h4 class="modal-title"> <p class="text-semibold text-main "></p>  <input rows="2 "type="text" class="form-control " id="titulo" name="titulo" > </h4>
+                    </div>
+
+                    <!--Modal body-->
+                    <div class="modal-body">
+                        <p class="text-semibold text-main ">Contenido.</p>
+                            <textarea class="form-control" rows="5" id="contenido" name="contenido" > </textarea>
+
+                        <br>
+                        <p class="text-semibold text-main">Imagen.</p>
+                            <img src="" id="imagen" >
+                            <input type="file" id="modificarImagen">
+                        <p>
+                            <p class="text-semibold text-main">Fecha Publicacion</p> <input type="text"  id="fecha_publicacion" name="fecha_publicacion">
+                            <p class="text-semibold text-main">Fecha Vencimiento</p> <input type="text"  id="fecha_vencimiento" name="fecha_vencimiento">
+                            <input type="date" id="vencimiento" name="vencimiento">
+                        </p>
+
+
+                    </div>
+             <!--Modal footer-->
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                <button class="btn btn-primary" type="submit">Editar</button>
+            </div>
+                 </form>
+            </div>
+        </div>
+</div>

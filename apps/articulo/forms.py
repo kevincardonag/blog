@@ -25,10 +25,10 @@ class articuloForm(forms.ModelForm):
         }
 
         widgets={
-            'titulo':forms.TextInput(attrs={'class':'form-control'}),
-            'contenido':forms.Textarea(attrs={'class':'form-control '}),
+            'titulo':forms.TextInput(attrs={'class':'form-control','required':True}),
+            'contenido':forms.Textarea(attrs={'class':'form-control','required':True}),
             'imagen':forms.FileInput(),
             'fecha_publicacion': forms.TextInput(attrs={'class':'text-dark','readonly': 'true',}),
-            'fecha_vencimiento':forms.SelectDateWidget(attrs={'class':'text-dark'}),
+            'fecha_vencimiento':forms.SelectDateWidget(attrs={'class':'text-dark','required':True}),
             'Tag':forms.CheckboxSelectMultiple(attrs={'class':'text-dark'}),
         }
