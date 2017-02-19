@@ -1,30 +1,28 @@
 <div class="modal fade" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" id="formEditar" action="" enctype="multipart/form-data" >
+                <form method="POST" id="formEditar" action="{% url 'articulo:editar' id %}" enctype="multipart/form-data" >
                     {% csrf_token %}
                     <!--Modal header-->
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                        <h4 class="modal-title"> <p class="text-semibold text-main "></p>  <input rows="2 "type="text" class="form-control " id="titulo" name="titulo" > </h4>
+                        <h4 class="modal-title"> <p class="text-semibold text-main "></p> {{form2.titulo}} </h4>
                     </div>
 
                     <!--Modal body-->
                     <div class="modal-body">
                         <p class="text-semibold text-main ">Contenido.</p>
-                            <textarea class="form-control" rows="5" id="contenido" name="contenido" > </textarea>
-
+                            {{ form2.contenido }}
                         <br>
                         <p class="text-semibold text-main">Imagen.</p>
-                            <img src="" id="imagen" >
-                            <input type="file" id="modificarImagen">
+                            {{form2.imagen}}
                         <p>
-                            <p class="text-semibold text-main">Fecha Publicacion</p> <input type="text"  id="fecha_publicacion" name="fecha_publicacion">
-                            <p class="text-semibold text-main">Fecha Vencimiento</p> <input type="text"  id="fecha_vencimiento" name="fecha_vencimiento">
-                            <input type="date" id="vencimiento" name="vencimiento">
+                            <p class="text-semibold text-main">Fecha Publicacion</p> {{form2.fecha_publicacion}}
+                            <p class="text-semibold text-main">Fecha Vencimiento</p>{{form2.fecha_vencimiento}}
                         </p>
 
-
+                        <p class="text-semibold text-main"> Categoria</p>
+                            {{form2.tag}}
                     </div>
              <!--Modal footer-->
             <div class="modal-footer">

@@ -1,5 +1,5 @@
 from django import forms
-from apps.articulo.models import Articulo
+from apps.articulo.models import Articulo,Comentario
 
 class articuloForm(forms.ModelForm):
     class Meta:
@@ -31,4 +31,20 @@ class articuloForm(forms.ModelForm):
             'fecha_publicacion': forms.TextInput(attrs={'class':'text-dark','readonly': 'true',}),
             'fecha_vencimiento':forms.SelectDateWidget(attrs={'class':'text-dark','required':True}),
             'Tag':forms.CheckboxSelectMultiple(attrs={'class':'text-dark'}),
+        }
+
+class comentarioForm(forms.ModelForm):
+    class Meta:
+        model=Comentario
+
+        fields=[
+            'comentario',
+        ]
+
+        labels={
+            'comentario':'comentario',
+        }
+
+        widgets={
+            'comentario':forms.Textarea(attrs={'class':'form-class','rows':'4','style':'width:100%','required':'True'}),
         }
