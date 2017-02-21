@@ -25,6 +25,7 @@ def formularioCrearArticulo(request):
 def index(request):
     form =formularioCrearArticulo(request)
     tags = Tag.objects.all()
+    #numero de articulos
     numero_articulos = []
     i = 0
     for tag in tags:
@@ -115,8 +116,3 @@ class crearComentario(CreateView):
 #class listarComentarios(ListView):
     #model=Comentario
 
-#class editarArticulo(UpdateView):
- #   model=Articulo
-  #  form_class = articuloForm
-   # template_name = 'admin/articulo/mostrar.html'
-    #success_url = reverse_lazy('articulo:index')"""

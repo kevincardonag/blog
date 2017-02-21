@@ -45,8 +45,7 @@
         });
    }
 
-   function abrirModal(id_articulo){
-        alert(id_articulo);
+   function abrirModal(){
         $("#demo-default-modal").modal();
    }
 
