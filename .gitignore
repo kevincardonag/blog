@@ -2,8 +2,9 @@
 *.pyc
 media/*
 **/migrations/**
+*.py-tpl
 
-#no ignorar
+#No ignorar
 !**/migrations/__init__.py
 
 
