@@ -13,7 +13,12 @@ import json
 import datetime
 
 
-class Crear_articulo(CreateView):
+class ArticuloCreateView(CreateView):
+    """
+    Autor: Kevin Cardona
+    Fecha: 23 de febrero 2017
+    clase CreateView, para la creacion de articulos
+    """
     model = Articulo
     template_name='admin/articulo/crearArticulo.html'
     form_class=articuloForm
@@ -21,6 +26,11 @@ class Crear_articulo(CreateView):
 
 
 class index(ListView):
+    """
+    Autor: Kevin Cardona
+    Fecha: 23 de febrero 2017
+    clase index, se lista todas las categorias(Tags) y cantidad de articulos por cada categoria
+    """
     model = Tag
     template_name = 'admin/articulo/index.html'
     
@@ -30,23 +40,33 @@ class index(ListView):
         return context
 
 
-class Listar_articulos(ListView):
+class ArticuloListView(ListView):
+    """
+    Autor: Kevin Cardona
+    Fecha: 23 de febrero 2017
+    clase ListView, encargada de listar los articulos por una categoria
+    """
     model = Articulo
     template_name = 'admin/articulo/listarArticulos.html'
 
     def get_context_data(self, **kwargs):
-        context = super(Listar_articulos, self).get_context_data(**kwargs)
+        context = super(ArticuloListView, self).get_context_data(**kwargs)
         context['articulos'] = Articulo.objects.filter(tag__id=self.kwargs['id_tag'], estado=True).order_by('-fecha_publicacion')
         return context
 
 
-class mostrarArticulo(DetailView):
+class ArticuloDetailView(DetailView):
+    """
+    Autor: Kevin Cardona
+    Fecha: 23 de febrero 2017
+    clase DetailView, muestra un articulo en detalle
+    """
     model = Articulo
     template_name = 'admin/articulo/mostrar.html'
     context_object_name = 'articulo'
 
     def get_context_data(self, **kwargs):
-        context =super(mostrarArticulo, self).get_context_data(**kwargs)
+        context =super(ArticuloDetailView, self).get_context_data(**kwargs)
         pk = self.kwargs['pk']
         articulo = Articulo.objects.get(id=pk)
         context['comentarios'] = Comentario.objects.filter(articulo_id=pk)
@@ -68,32 +88,32 @@ class mostrarArticulo(DetailView):
                 articulo.estado = True
                 articulo.save()
                 return HttpResponse('Estado: Desactivado')
-        return super(mostrarArticulo, self).get(request,*args, **kwargs)
+        return super(ArticuloDetailView, self).get(request, *args, **kwargs)
+
+class ArticuloUpdateView(UpdateView):
+    """
+    Autor: Kevin Cardona
+    Fecha: 23 de febrero 2017
+    clase updateview,se encarga de actualizar un articulo
+    """
+    model = Articulo
+    form_class = articuloForm
+    success_url = reverse_lazy('articulo:index')
 
 
-def editarArticulo(request,id_articulo):
-    articulo = Articulo.objects.get(id=id_articulo)
-
-    if request.method == 'GET':
-        form = articuloForm(instance=articulo)
-    else :
-        form=articuloForm(request.POST,instance=articulo)
-        if form.is_valid():
-            form.save()
-        return redirect('articulo:index')
-
-    return HttpResponse('si')
-
-
-
-class crearComentario(CreateView):
+class ComentarioCreateView(CreateView):
+    """
+    Autor: Kevin Cardona
+    Fecha: 23 de febrero 2017
+    clase CreateView, para la creacion de comentarios
+    """
     model = Comentario
     template_name = 'admin/articulo/mostrar.html'
     form_class = comentarioForm
     second_form_class = articuloForm
 
     def get(self, request, *args, **kwargs):
-        context=super(crearComentario, self).get(*args, **kwargs)
+        context=super(ComentarioCreateView, self).get(*args, **kwargs)
         if 'form' not in context:
             context['form'] = articuloForm
         if 'formComentario' not in context:
@@ -110,6 +130,3 @@ class crearComentario(CreateView):
             comentario.articulo_id = id
             comentario.save()
             return redirect('articulo:index')
-
-
-
