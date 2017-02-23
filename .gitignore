@@ -1,0 +1,9 @@
+media/*
+.idea
+*.pyc
+**/migrations/**
+
+#no ignorar
+!**/migrations/__init__.py
+
+

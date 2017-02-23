@@ -9,7 +9,6 @@ class articuloForm(forms.ModelForm):
             'titulo',
             'contenido',
             'imagen',
-            'fecha_publicacion',
             'fecha_vencimiento',
             'tag',
 
@@ -19,7 +18,6 @@ class articuloForm(forms.ModelForm):
             'titulo':'Titulo',
             'contenido':'Contenido',
             'imagen':'Imagen',
-            'fecha_publicacion': 'Fecha de Publicacion',
             'fecha_vencimiento': 'Fecha de vencimiento',
             'tag':'Tag',
         }
@@ -28,7 +26,6 @@ class articuloForm(forms.ModelForm):
             'titulo':forms.TextInput(attrs={'class':'form-control','required':True}),
             'contenido':forms.Textarea(attrs={'class':'form-control','required':True}),
             'imagen':forms.FileInput(),
-            'fecha_publicacion': forms.TextInput(attrs={'class':'text-dark','readonly': 'true',}),
             'fecha_vencimiento':forms.SelectDateWidget(attrs={'class':'text-dark','required':True}),
             'Tag':forms.CheckboxSelectMultiple(attrs={'class':'text-dark'}),
         }

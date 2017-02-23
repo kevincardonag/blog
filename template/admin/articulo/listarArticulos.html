@@ -23,7 +23,7 @@
 					      		<div class="timeline-time"><a href="#" class="btn-link text-main text-bold">PUBLICADO</a><BR>{{articulo.fecha_publicacion}}</div>
 						</div>
 					  	<div class="timeline-label">
-					    	 <p class="mar-no pad-btm"><a href="#" class="btn-link text-main text-bold">EXPIRA</a> {{articulo.fecha_vencimiento}}.<a href="#" class="text-semibold"><i> El blog del Saber</i></a></p>
+					    	 <p class="mar-no pad-btm" ><a href="#" class="btn-link text-main text-bold">EXPIRA</a> {{articulo.fecha_vencimiento}}.<a href="#" class="text-semibold"><i> El blog del Saber</i></a></p>
 							<blockquote class="bq-sm bq-open mar-no">{{articulo.contenido|truncatechars:100}} </blockquote>
 					  	</div>
               		</div>
@@ -34,6 +34,9 @@
 <h2>NO EXISTEN ARTICULOS PARA ESTE POST.</h2>
 {% endif%}					        <!--===================================================-->	<!-- End Timeline -->
 {% endblock%}
+
+<% block script% >
+
 
 
 
