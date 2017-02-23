@@ -1,6 +1,6 @@
-media/*
 .idea
 *.pyc
+media/*
 **/migrations/**
 
 #no ignorar

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.articulo'
+    'articulo',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -128,4 +128,4 @@ MEDIA_URL='/media/'
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=(os.path.join(BASE_DIR,'Boopstrap'),)
+STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)

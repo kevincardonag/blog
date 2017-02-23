@@ -1,5 +1,5 @@
 from django import forms
-from apps.articulo.models import Articulo,Comentario
+from articulo.models import Articulo,Comentario
 
 class articuloForm(forms.ModelForm):
     class Meta:

@@ -17,9 +17,8 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from django.conf import settings
-from apps.articulo.views import index,listarArticulos,mostrarArticulo
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^',include('apps.articulo.urls',namespace='articulo')),
+    url(r'^',include('articulo.urls',namespace='articulo')),
 ]

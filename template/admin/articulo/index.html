@@ -1,4 +1,4 @@
-{% extends 'layouts/layout.html' %}
+{% extends 'base/base.html' %}
 {% block breadcrumb %}
     <ol class="breadcrumb">
         <li><a href="{% url 'articulo:index'%}">Home</a></li>
@@ -7,18 +7,17 @@
 {% block contenido%}
 
 <div class="container mar-all center pad-all bord-all col-sm-12 ">
-{% if lista %}
+{% if object_list %}
 
-    {% for tag,c_articulos in lista %}
-        <!--===================================================-->
-    <a href="{% url 'articulo:listar' tag.id %}">
+    {% for info in info_articulos %}
+      <a href="{% url 'articulo:listar' info.id %}">
         <div class="panel col-sm-3 pad-all mar-all" >
             <div class="panel-body text-center text-primary bg-gray-light">
                 <i class="demo-pli-speech-bubble-7 icon-5x"></i>
             </div>
             <div class="pad-all text-center">
-                <p class="text-semibold text-lg mar-no text-main">{{tag.nombre}}</p>
-                <p class="h2 text-thin mar-no">{{c_articulos}}</p>
+                <p class="text-semibold text-lg mar-no text-main">{{info.nombre}}</p>
+                <p class="h2 text-thin mar-no">{{ info.cantidad_articulos }}</p>
                 <p class="text-sm text-overflow pad-top">
                     <span class="text-bold">Articulos</span>
                 </p>
@@ -30,6 +29,8 @@
         <!--===================================================-->
       </a>
     {% endfor %}
+{% else %}
+    <h1>No existen categorias. </h1>
 {% endif %}
 </div>
 {% endblock%}
