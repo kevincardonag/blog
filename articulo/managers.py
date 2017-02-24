@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Count, F
+from django.db.models import Count
 
 
 class TagManager(models.Manager):
@@ -18,4 +18,3 @@ class TagManager(models.Manager):
         :return: Diccionario con los datos
         """
         return self.annotate(cantidad_articulos=Count('articulo')).values('nombre', 'cantidad_articulos', 'id')
-

@@ -1,4 +1,4 @@
-from django.conf.urls import url,include
+from django.conf.urls import url
 
 from articulo import views
 
@@ -10,4 +10,3 @@ urlpatterns = [
     url(r'^editar-articulo/(?P<pk>\d+)/$', views.ArticuloUpdateView.as_view(), name='editar'),
     url(r'^crear-articulo/(?P<pk>\d+)/$', views.ComentarioCreateView.as_view(), name='crearComentario'),
 ]
-

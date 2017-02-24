@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'articulo:index'%}">Home</a></li>
+    </ol>
+{% endblock %}
+
+{% block contenido %}
+
+    <form action="" method="post" class="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Submit
+            </button>
+        {% endbuttons %}
+    </form>
+
+{% endblock%}
