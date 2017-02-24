@@ -9,7 +9,7 @@
 {% endblock%}
 
 {% block contenido%}
-{% include 'admin//modal.html' with form=form  id=id %}
+{% include 'articulo/modal.html' with form=form  id=id %}
 <div class="col-sm-12 eq-box-sm">
 
     <!--Panel with Footer-->
@@ -25,7 +25,7 @@
                 <textarea readonly rows="8" style="width:100%">{{articulo.contenido}}</textarea> </li>
 
                 <li class="list-group-item"> <h4><p class="text-semibold text-main">Imagen.</p></h4>
-                <img src="{{articulo.imagen}}"> {{articulo.imagen}}</li>
+                <img src="{{articulo.imagen.url}}"> </li>
 
                 <li class="list-group-item"> <p>
                 <h4><p class="text-semibold text-main">Fecha Publicacion</p></h4> {{articulo.fecha_publicacion}}

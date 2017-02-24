@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
 
@@ -17,10 +17,12 @@ class ArticuloCreateView(CreateView):
     model = Articulo
     template_name = 'articulo/crear-articulo.html'
     form_class = ArticuloForm
-    success_url = reverse_lazy('articulo:index')
+
+    def get_success_url(self):
+        return reverse('articulo:index')
 
 
-class index(ListView):
+class Index(ListView):
     """
     Autor: Kevin Cardona
     Fecha: 23 de febrero 2017
@@ -30,7 +32,7 @@ class index(ListView):
     template_name = 'articulo/index.html'
     
     def get_context_data(self, **kwargs):
-        context = super(index, self).get_context_data(**kwargs)
+        context = super(Index, self).get_context_data(**kwargs)
         context['info_articulos'] = Tag.custom_objects.obtener_cantidad_articulos_por_categoria()
         return context
 
@@ -93,6 +95,7 @@ class ArticuloUpdateView(UpdateView):
     clase updateview,se encarga de actualizar un articulo
     """
     model = Articulo
+    template_name = 'articulo/index.html'
     form_class = ArticuloForm
     success_url = reverse_lazy('articulo:index')
 

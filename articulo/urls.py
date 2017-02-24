@@ -3,7 +3,7 @@ from django.conf.urls import url
 from articulo import views
 
 urlpatterns = [
-    url(r'^$', views.index.as_view(), name='index'),
+    url(r'^$', views.Index.as_view(), name='index'),
     url(r'^crear-articulo/$', views.ArticuloCreateView.as_view(), name='crearArticulo'),
     url(r'^listar/(?P<id_tag>\d+)/$', views.ArticuloListView.as_view(), name='listar'),
     url(r'^listar-articulo/(?P<pk>\d+)/$', views.ArticuloDetailView.as_view(), name='mostrar'),
