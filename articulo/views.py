@@ -120,7 +120,7 @@ class ComentarioCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
         form_comentario = self.form_class(request.POST)
-        if formComentario.is_valid():
+        if form_comentario.is_valid():
             id = kwargs['pk']
             comentario = form_comentario.save(commit=False)
             comentario.articulo_id = id

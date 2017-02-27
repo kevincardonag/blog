@@ -17,7 +17,12 @@ class TagManager(models.Manager):
         {"categoria":"cantidad"}
         :return: Diccionario con los datos
         """
-        return self.annotate(cantidad_articulos=Count('articulo')).values('nombre', 'cantidad_articulos', 'id')
+        return self.annotate(cantidad_articulos=models.Sum(
+            models.Case(models.When(articulo__estado=True, then=1),
+                        default=0, output_field=models.IntegerField()
+                        )
+            )
+        )
 
 
 class ArticuloManager(models.Manager):
