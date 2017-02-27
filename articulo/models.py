@@ -1,5 +1,5 @@
 from django.db import models
-from .managers import TagManager
+from .managers import TagManager, ArticuloManager
 
 
 class Tag(models.Model):
@@ -29,6 +29,8 @@ class Articulo(models.Model):
     fecha_vencimiento = models.DateField(null=True, blank=True)
     estado = models.BooleanField(default=True)
     tag = models.ManyToManyField(Tag)
+    objects = models.Manager()
+    custom_objects = ArticuloManager()
 
     def __str__(self):
         return self.titulo

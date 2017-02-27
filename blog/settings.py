@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articulo',
     'bootstrap3',
+    'datetimewidget',
 ]
 
 MIDDLEWARE_CLASSES = [

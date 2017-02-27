@@ -53,7 +53,7 @@
 
     <!--Page Load Progress Bar [ OPTIONAL ]-->
     <link href="{% static 'css/pace.min.css' %}" rel="stylesheet">
-    <script src="{% static 'js/pace.min.js' %}"></script>
+
 
     <!--jQuery [ REQUIRED ]-->
     <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>
@@ -365,7 +365,7 @@
                 <!--End breadcrumb-->
                 {% endblock %}
 
-                <a  href="{% url 'articulo:crearArticulo'%}"> <button class="btn-primary"> Crear Articulo</button></a>
+                <a  href="{% url 'articulo:crear'%}"> <button class="btn-primary"> Crear Articulo</button></a>
                 <br>
                 <br>
                 {% block contenido %}

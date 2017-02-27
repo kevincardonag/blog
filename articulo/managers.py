@@ -18,3 +18,32 @@ class TagManager(models.Manager):
         :return: Diccionario con los datos
         """
         return self.annotate(cantidad_articulos=Count('articulo')).values('nombre', 'cantidad_articulos', 'id')
+
+
+class ArticuloManager(models.Manager):
+    """
+    Autor: Kevin Cardona
+    Fecha: 27 febrero 2017
+    Manager personalizado para el modelo Tag
+    """
+
+    def buscar_articulos_por_categoria_y_estado(self, id_tag, estado):
+        """
+        Autor: Kevin Cardona
+        Fecha: 27 febrero 2017
+        Metodo para obtener todos los articulos correspondiente a una categoria y con un estado (True or False)
+        :param id_tag
+        :return: lista con articulos
+        """
+        return self.filter(tag__id=id_tag, estado=estado)
+
+    def buscar_articulos_por_estado(self, estado):
+        """
+        Autor: Kevin Cardona
+        Fecha: 27 Febrero 2017
+        Metodo que obtiene todos los articulos por un estado, (True or False)
+        :param estado:
+        :return: lista con articulos
+        """
+
+        return self.filter(estado=estado)

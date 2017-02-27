@@ -1,37 +1,59 @@
 {% extends 'base/base.html' %}
 
+{# Load the tag library #}
+{% load bootstrap3 %}
+
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{% url 'articulo:index'%}">Home</a></li>
+        <li><a href="{% url 'articulo:index' %}">Home</a></li>
         <li><a href="#">Articulos</a></li>
-        <li><a href="{% url 'articulo:mostrar' id %}">Articulo</a></li>
+        <li><a href="{% url 'articulo:mostrar' object.id %}">Articulo</a></li>
     </ol>
 {% endblock%}
 
 {% block contenido%}
-{% include 'articulo/modal.html' with form=form  id=id %}
+{% include 'articulo/modal.html' with form=form  id=object.id %}
 <div class="col-sm-12 eq-box-sm">
 
     <!--Panel with Footer-->
     <!--===================================================-->
     <div class="panel" id="demo-panel-w-alert">
         <div class="panel-heading">
-            <h3 class="panel-title bg-gray-light">{{articulo.titulo|upper}}
+            <h3 class="panel-title bg-gray-light">{% bootstrap_label articulo.titulo %}
             </h3>
         </div>
+
         <div class="panel-body">
             <ul class="list group">
-                <li class="list-group-item"><h4><p class="text-semibold text-main ">Contenido.</p></h4>
-                <textarea readonly rows="8" style="width:100%">{{articulo.contenido}}</textarea> </li>
+                <li class="list-group-item">
+                    <h4>
+                        <p class="text-semibold text-main ">Contenido.</p>
+                    </h4>
+                    {% bootstrap_label articulo.contenido %}
+                </li>
 
-                <li class="list-group-item"> <h4><p class="text-semibold text-main">Imagen.</p></h4>
-                <img src="{{articulo.imagen.url}}"> </li>
+                <li class="list-group-item">
+                    <h4>
+                        <p class="text-semibold text-main">Imagen.</p>
+                    </h4>
+                        {% if articulo.imagen %}
+                            <img src="{{ articulo.imagen.url }}">
+                        {% endif %}
+                </li>
 
-                <li class="list-group-item"> <p>
-                <h4><p class="text-semibold text-main">Fecha Publicacion</p></h4> {{articulo.fecha_publicacion}}
-                <h4><p class="text-semibold text-main">Fecha Vencimiento</p></h4>{{articulo.fecha_vencimiento}}
+                <li class="list-group-item">
+                    <p>
+                        <h4>
+                            <p class="text-semibold text-main">Fecha Publicacion</p>
+                        </h4>
+                            {% bootstrap_label articulo.fecha_publicacion %}
 
-            </p></li>
+                        <h4>
+                            <p class="text-semibold text-main">Fecha Vencimiento</p>
+                        </h4>
+                            {% bootstrap_label articulo.fecha_vencimiento %}
+                    </p>
+                </li>
             </ul>
 
         </div>
@@ -39,9 +61,6 @@
             <div class="row">
                 <div class="col-md-offset-9">
                     <button id="demo-panel-alert" class="btn btn-warning" onclick="desactivar()" data-ajax-target="{% url 'articulo:mostrar' articulo.id %}">Desactivar</button>
-                    <!--<button id="abrirModal"class="btn btn-primary" onclick="editarArticulo()" data-ajax-target="{% url 'articulo:mostrar' articulo.id %}">
-                        Modificar</button>-->
-
                     <button id="abrirModal" onclick="abrirModal()" data-target="#demo-default-modal" class="btn btn-primary" >
                         Modificar</button>
                 </div>
@@ -72,9 +91,9 @@
             <div class="panel-body">
                  <ul class="list group">
                      <li class="list-group-item"> Escribe tu comentario Aquí.
-                         <form method="POST" action="{% url 'articulo:crearComentario' id %}">
+                         <form method="POST" action="{% url 'articulo:crear_comentario' object.id %}">
                              {% csrf_token %}
-                             {{formComentario.comentario}}
+                             {{ form_comentario.comentario}}
                              <button type="submit" class="btn-primary"> Comentar</button>
                          </form>
                      </li>

@@ -1,3 +1,6 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
 <div class="modal fade" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -5,20 +8,24 @@
                     {% csrf_token %}
                     <!--Modal header-->
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                        <h4 class="modal-title"> <p class="text-semibold text-main "></p> {{form2.titulo}} </h4>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <i class="pci-cross pci-circle"></i>
+                        </button>
+                        <h4 class="modal-title">
+                            <p class="text-semibold text-main "> </p> {%  bootstrap_field form2.titulo %}
+                        </h4>
                     </div>
 
                     <!--Modal body-->
                     <div class="modal-body">
-                        <p class="text-semibold text-main ">Contenido.</p>
-                            {{ form2.contenido }}
+                        <p class="text-semibold text-main ">{%  bootstrap_field form2.contenido %}</p>
+
                         <br>
-                        <p class="text-semibold text-main">Imagen.</p>
-                            {{form2.imagen}}
+                        <p class="text-semibold text-main">{%  bootstrap_field form2.imagen %}</p>
+
                         <p>
-                            <p class="text-semibold text-main">Fecha Publicacion</p> {{form2.fecha_publicacion}}
-                            <p class="text-semibold text-main">Fecha Vencimiento</p>{{form2.fecha_vencimiento}}
+                            <p class="text-semibold text-main">Fecha Publicacion</p> {% bootstrap_label form2.fecha_publicacion %}
+                            <p class="text-semibold text-main"> {%  bootstrap_field form2.fecha_vencimiento %} </p>
                         </p>
 
                         <p class="text-semibold text-main"> Categoria</p>
@@ -29,7 +36,9 @@
                 <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
                 <button class="btn btn-primary" type="submit">Editar</button>
             </div>
-                 </form>
+
+            </form>
+
             </div>
         </div>
 </div>

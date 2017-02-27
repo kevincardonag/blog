@@ -1,9 +1,15 @@
 from django import forms
 
+from datetimewidget.widgets import DateWidget
 from articulo.models import Articulo, Comentario
 
 
 class ArticuloForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ArticuloForm, self).__init__(*args, **kwargs)
+        self.fields['fecha_vencimiento'].widget = DateWidget(attrs={'id': "fecha_vencimiento", 'name': 'fecha_vencimiento'}, usel10n=True, bootstrap_version=3)
+
     class Meta:
         model = Articulo
 

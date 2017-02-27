@@ -2,7 +2,6 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
 
-
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from articulo.models import Articulo, Tag, Comentario
 from articulo.forms import ArticuloForm, ComentarioForm
@@ -48,7 +47,7 @@ class ArticuloListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticuloListView, self).get_context_data(**kwargs)
-        context['articulos'] = Articulo.objects.filter(tag__id=self.kwargs['id_tag'], estado=True).order_by('-fecha_publicacion')
+        context['articulos'] = Articulo.custom_objects.buscar_articulos_por_categoria_y_estado(self.kwargs['id_tag'], True)
         return context
 
 
@@ -60,23 +59,22 @@ class ArticuloDetailView(DetailView):
     """
     model = Articulo
     template_name = 'articulo/mostrar.html'
-    context_object_name = 'articulo'
 
     def get_context_data(self, **kwargs):
         context = super(ArticuloDetailView, self).get_context_data(**kwargs)
-        pk = self.kwargs['pk']
-        articulo = Articulo.objects.get(id=pk)
-        context['comentarios'] = Comentario.objects.filter(articulo_id=pk)
+        articulo = self.get_object()
+        context['comentarios'] = Comentario.objects.filter(articulo_id=articulo.pk)
         context['form2'] = ArticuloForm(instance=articulo)
-        context['formComentario'] = ComentarioForm()
-        context['id'] = pk
+        context['form_comentario'] = ComentarioForm()
         return context
 
     def get(self, request, *args, **kwargs):
-        if(self.request.is_ajax()):
-            id_articulo = self.request.GET.get('id')
+
+        if self.request.is_ajax():
             activado = self.request.GET.get('activado')
-            articulo = Articulo.objects.get(id=id_articulo)
+            articulo = self.get_object()
+            print(articulo)
+            print(activado)
             if activado == '1':
                 articulo.estado = False
                 articulo.save()
@@ -115,17 +113,16 @@ class ComentarioCreateView(CreateView):
         context = super(ComentarioCreateView, self).get(*args, **kwargs)
         if 'form' not in context:
             context['form'] = ArticuloForm
-        if 'formComentario' not in context:
-            context['formComentario'] = ComentarioForm
+        if 'form_comentario' not in context:
+            context['form_comentario'] = ComentarioForm
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
-        formComentario = self.form_class(request.POST)
-        form = self.second_form_class(request.POST)
+        form_comentario = self.form_class(request.POST)
         if formComentario.is_valid():
             id = kwargs['pk']
-            comentario = formComentario.save(commit=False)
+            comentario = form_comentario.save(commit=False)
             comentario.articulo_id = id
             comentario.save()
             return redirect('articulo:index')
