@@ -47,7 +47,8 @@ class ArticuloListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticuloListView, self).get_context_data(**kwargs)
-        context['articulos'] = Articulo.custom_objects.buscar_articulos_por_categoria_y_estado(self.kwargs['id_tag'], True)
+        context['articulos'] = Articulo.custom_objects.buscar_articulos_por_categoria_y_estado(
+                                                                    self.kwargs['id_tag'], True)
         return context
 
 
