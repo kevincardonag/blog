@@ -91,7 +91,7 @@
             <div class="panel-body">
                  <ul class="list group">
                      <li class="list-group-item"> Escribe tu comentario Aquí.
-                         <form method="POST" action="{% url 'articulo:crear_comentario' object.id %}">
+                         <form method="POST" action="{% url 'articulo:crear-comentario' object.id %}">
                              {% csrf_token %}
                              {{ form_comentario.comentario}}
                              <button type="submit" class="btn-primary"> Comentar</button>

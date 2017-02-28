@@ -23,6 +23,11 @@ class ArticuloForm(forms.ModelForm):
 
 
 class ComentarioForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ComentarioForm, self).__init__(*args, **kwargs)
+        self.fields['comentario'].widget.attrs.update({'style': 'width:100%', 'rows': '5'})
+
     class Meta:
         model = Comentario
 

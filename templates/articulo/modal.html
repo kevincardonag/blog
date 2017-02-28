@@ -6,6 +6,7 @@
             <div class="modal-content">
                 <form method="POST" id="formEditar" action="{% url 'articulo:editar' id %}" enctype="multipart/form-data" >
                     {% csrf_token %}
+                    {{ form2.media }}
                     <!--Modal header-->
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">

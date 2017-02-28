@@ -5,7 +5,7 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{% url 'articulo:index'%}">Home</a></li>
+        <li><a href="{% url 'articulo:index' %}">Home</a></li>
     </ol>
 {% endblock %}
 
@@ -13,12 +13,14 @@
 
     <form action="" method="post" enctype="multipart/form-data" >
         {% csrf_token %}
+        {{ form.media }}
         {% bootstrap_form form %}
         {% buttons %}
             <button type="submit" class="btn btn-primary">
                 {% bootstrap_icon "star" %} Submit
             </button>
         {% endbuttons %}
+
     </form>
 
 {% endblock%}
