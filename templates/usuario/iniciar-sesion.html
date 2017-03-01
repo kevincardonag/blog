@@ -5,7 +5,7 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{% url 'articulo:index' %}">Home</a></li>
+        <li><a href="{% url 'articulo:index' %}">Blog del saber.</a></li>
     </ol>
 {% endblock %}
 
@@ -18,39 +18,22 @@
 		    <div class="cls-content-sm panel">
 		        <div class="panel-body">
 		            <div class="mar-ver pad-btm">
-		                <h3 class="h4 mar-no">Account Login</h3>
-		                <p class="text-muted">Sign In to your account</p>
+		                <h3 class="h4 mar-no">Iniciar Sesíon</h3>
 		            </div>
 		            <form  method="post" >
                         {% csrf_token %}
 		                <div class="form-group">
-		                    <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
+		                    <input type="text" name="username" class="form-control" placeholder="Nombre de Usuario" autofocus>
 		                </div>
 		                <div class="form-group">
-		                    <input type="password" name="password" class="form-control" placeholder="Password">
+		                    <input type="password" name="password" class="form-control" placeholder="Contraseña">
 		                </div>
-		                <div class="checkbox pad-btm text-left">
-		                    <input id="demo-form-checkbox" class="magic-checkbox" type="checkbox">
-		                    <label for="demo-form-checkbox">Remember me</label>
-		                </div>
-		                <button class="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
+		                <button class="btn btn-primary btn-lg btn-block" type="submit">Iniciar Sesíon</button>
 		            </form>
 		        </div>
 
 		        <div class="pad-all">
-		            <a href="pages-password-reminder.html" class="btn-link mar-rgt">Forgot password ?</a>
-		            <a href="pages-register.html" class="btn-link mar-lft">Create a new account</a>
-
-		            <div class="media pad-top bord-top">
-		                <div class="pull-right">
-		                    <a href="#" class="pad-rgt"><i class="demo-psi-facebook icon-lg text-primary"></i></a>
-		                    <a href="#" class="pad-rgt"><i class="demo-psi-twitter icon-lg text-info"></i></a>
-		                    <a href="#" class="pad-rgt"><i class="demo-psi-google-plus icon-lg text-danger"></i></a>
-		                </div>
-		                <div class="media-body text-left">
-		                    Login with
-		                </div>
-		            </div>
+		            <a href="{% url 'usuario:registrar' %}" class="btn-link mar-lft">Crear cuenta nueva</a>
 		        </div>
 		    </div>
 		</div>

@@ -1,7 +1,4 @@
 
-   $("select.one").select2({width: '100%'});
-   $("select.many").select2({multiple:true, width: '100%'});
-
    $("#demo-panel-alert").click(function(){
         if ($('#activado').val() == 1){
             $('#activado').val('0') ;
@@ -27,7 +24,3 @@
    function abrirModal(){
         $("#demo-default-modal").modal();
    }
-
-
-
-

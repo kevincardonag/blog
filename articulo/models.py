@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from .managers import TagManager, ArticuloManager
 
 
@@ -44,6 +45,7 @@ class Comentario(models.Model):
     """
     articulo = models.ForeignKey(Articulo, blank=True, null=True, on_delete=models.CASCADE)
     comentario = models.TextField()
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.comentario

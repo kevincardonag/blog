@@ -4,23 +4,37 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{% url 'articulo:index' %}">Home</a></li>
-        <li><a href="{% url 'usuario:registrar' %}">Registrarse</a></li>
+        <li><a href="{% url 'articulo:index' %}">Blog del saber.</a></li>
+        <li><a href="{% url 'usuario:registrar' %}">Regístrarse</a></li>
     </ol>
 {% endblock %}
 
 {% block contenido %}
+    <div class="col-md-8 col-md-offset-2 eq-box-sm center">
+        <!--Panel with Footer-->
+        <!--===================================================-->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Regístrarse
+                </h3>
+            </div>
+            <form action="{% url 'usuario:registrar' %}" method="post" enctype="multipart/form-data" id="userCreate" >
+                {% csrf_token %}
+                <div class="panel-body">
+                     {% bootstrap_form form %}
 
-    <form action="" method="post" enctype="multipart/form-data" >
-        {% csrf_token %}
-        {{ form.media }}
-        {% bootstrap_form form %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "star" %} Submit
-            </button>
-        {% endbuttons %}
-
-    </form>
-
+                </div>
+                <div class="panel-footer ">
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "send" %} Regístrar
+                        </button>
+                    {% endbuttons %}
+                </div>
+            </form>
+         </div>
+        <!--===================================================-->
+        <!--End Panel with Footer-->
+    </div>
 {% endblock%}

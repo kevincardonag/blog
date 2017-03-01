@@ -5,7 +5,7 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{% url 'articulo:index' %}">Home</a></li>
+        <li><a href="{% url 'articulo:index' %}">Blog del saber</a></li>
         <li><a href="#">Articulos</a></li>
         <li><a href="{% url 'articulo:mostrar' object.id %}">Articulo</a></li>
     </ol>
@@ -104,7 +104,9 @@
                              <ul class="list group">
                                  {% if comentarios%}
                                     {% for comentario in comentarios %}
-                                         <li class="list-group-item"> <textarea readonly style="width:100%" rows="2" > {{comentario.comentario}}</textarea></li>
+                                       <p>{{ comentario.user }}</p>
+                                         <li class="list-group-item"> {{comentario.comentario}}</li>
+                                        <br>
                                     {% endfor%}
                                  {% else %}
                                     <h3> No existen comentario para este post.</h3>

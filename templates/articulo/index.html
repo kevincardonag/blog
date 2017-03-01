@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{% url 'articulo:index'%}">Home</a></li>
+        <li><a href="{% url 'articulo:index'%}">Blog del saber</a></li>
     </ol>
 {% endblock %}
 {% block contenido%}
@@ -19,7 +19,7 @@
                 <p class="text-semibold text-lg mar-no text-main">{{info.nombre}}</p>
                 <p class="h2 text-thin mar-no">{{ info.cantidad_articulos }}</p>
                 <p class="text-sm text-overflow pad-top">
-                    <span class="text-bold">Articulos</span>
+                    <span class="text-bold">Artículos</span>
                 </p>
                 <p class="text-sm text-overflow pad-top">
                     <span class="text-bold">{{ info.cantidad_comentarios }}</span> Comentarios
