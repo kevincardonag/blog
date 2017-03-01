@@ -4,7 +4,7 @@
 <html>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{%block titulo %}  {% endblock %}</title>
+    <title>{% block titulo %}  {% endblock %}</title>
 
     <!--Open Sans Font [ OPTIONAL ] -->
      <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
@@ -272,7 +272,7 @@
 						<!--Navigation toogle button-->
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                        <li class="tgl-menu-btn">
-						   <a href="#"> CONOCENOS</a>
+						   <a href="{%url 'usuario:iniciar-sesion' %}"> Iniciar Sesion </a>
                            <!-- <a class="mainnav-toggle" href="#">
                                 <i class="ti-view-list icon-lg"></i>
                             </a>-->
@@ -284,10 +284,7 @@
 						<!--Navigation toogle button-->
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                        <li class="tgl-menu-btn">
-						   <a href="#"> CONTACTO</a>
-                           <!-- <a class="mainnav-toggle" href="#">
-                                <i class="ti-view-list icon-lg"></i>
-                            </a>-->
+						   <a href="{% url 'usuario:registrar' %}"> Registrarse </a>
                         </li>
 
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -324,10 +321,39 @@
 						<!-- fin instagram -->
 
                         <li>
-                            <a href="#" class="aside-toggle navbar-aside-icon">
-                                <i class="pci-ver-dots"></i>
+                             <!--User dropdown-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li id="dropdown-user" class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="pull-right">
+                                    <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
+                                    <i class="demo-pli-male ic-user"></i>
+                                </span>
+                                {% if user.is_authenticated %}
+                                    <p>Bienvenido, {{ user.get_username }}.</p>
+                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+
+                                            <!-- Dropdown heading  -->
+                                            <div class="pad-all bord-btm">
+                                                    <p class="text-main mar-btm"><span class="text-bold">750GB</span> of 1,000GB Used</p>
+                                                <div class="progress progress-sm">
+                                                    <div class="progress-bar" style="width: 70%;">
+                                                         <span class="sr-only">70%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Dropdown footer -->
+                                            <div class="pad-all text-right">
+                                                <a href="{% url 'usuario:logout' %}" class="btn btn-primary">
+                                                    <i class="demo-pli-unlock"></i> Logout
+                                                </a>
+                                            </div>
+                                        </div>
+                                {% else %}
+                                   <a href="{% url 'usuario:iniciar-sesion' %}"> <p>Bienvenido, Por favor Iniciar sesión.</p> </a>
+                                {% endif %}
                             </a>
-                        </li>
                     </ul>
                 </div>
                 <!--================================-->
@@ -368,48 +394,7 @@
             <!--===================================================-->
             <!--END CONTENT CONTAINER-->
 
-
-            <!--ASIDE-->
-            <!--===================================================-->
-            <aside id="aside-container">
-                <div id="aside" >
-                    <div class="nano has-scrollbar">
-                        <div class="nano-content " tabindex="0" style="right: -10px;">
-
-                            <!--Nav tabs-->
-                            <!--================================-->
-                            <ul class="nav nav-tabs nav-justified">
-                                <li class="active">
-                                    <a href="#demo-asd-tab-1" data-toggle="tab">
-                                        <i class="ti-comments"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                            <!--================================-->
-                            <!--End nav tabs-->
-
-                            <!-- Tabs Content -->
-                            <!--================================-->
-                            <div class="tab-content text-dark">
-
-                                <!--First tab-->
-                                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                <div class="tab-pane fade in active" id="demo-asd-tab-1">
-
-                                </div>
-                                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                <!--End first tab-->
-                            </div>
-                        </div>
-                    <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 2262px; transform: translate(0px, 0px);"></div></div></div>
-                </div>
-            </aside>
-            <!--===================================================-->
-            <!--END ASIDE-->
-
         </div>
-
-
 
         <!-- FOOTER -->
         <!--===================================================-->
@@ -456,7 +441,15 @@
     </div>
     <!--===================================================-->
     <!-- END OF CONTAINER -->
-    <script src="{% static 'main.js' %}" ></script>
+        <script src="{% static 'main.js' %}" ></script>
+        <script>
+            $("select.one").select2({width: '100%'});
+            $("select.many").select2({multiple:true, width: '100%'});
+        </script>
+        <script>
+            {% block custom_script %}
 
+            {% endblock  %}
+        </script>
     </body>
 </html>

@@ -35,6 +35,12 @@ class Index(ListView):
         context['info_articulos'] = Tag.custom_objects.obtener_cantidad_articulos_por_categoria()
         return context
 
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            print(self.request.user.username)
+        else: print('no esta autenticado')
+        return super(Index, self).get(request, *args, **kwargs)
+
 
 class ArticuloListView(ListView):
     """

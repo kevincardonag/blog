@@ -60,9 +60,11 @@
         <div class="panel-footer bg-gray-ligth">
             <div class="row">
                 <div class="col-md-offset-9">
-                    <button id="demo-panel-alert" class="btn btn-warning" onclick="desactivar()" data-ajax-target="{% url 'articulo:mostrar' articulo.id %}">Desactivar</button>
-                    <button id="abrirModal" onclick="abrirModal()" data-target="#demo-default-modal" class="btn btn-primary" >
+                    {% if user.is_authenticated %}
+                        <button id="demo-panel-alert" class="btn btn-warning" onclick="desactivar()" data-ajax-target="{% url 'articulo:mostrar' articulo.id %}">Desactivar</button>
+                        <button id="abrirModal" onclick="abrirModal()" data-target="#demo-default-modal" class="btn btn-primary" >
                         Modificar</button>
+                    {% endif %}
                 </div>
             </div>
 
@@ -87,30 +89,36 @@
             <h3 class="panel-title">Comentarios</h3>
         </div>
         <!--Panel body-->
-        <div id="demo-panel-collapse" class="collapse in">
-            <div class="panel-body">
-                 <ul class="list group">
-                     <li class="list-group-item"> Escribe tu comentario Aquí.
-                         <form method="POST" action="{% url 'articulo:crear-comentario' object.id %}">
-                             {% csrf_token %}
-                             {{ form_comentario.comentario}}
-                             <button type="submit" class="btn-primary"> Comentar</button>
-                         </form>
-                     </li>
-                     <li class="list-group-item">
-                         <ul class="list group">
-                             {% if comentarios%}
-                                {% for comentario in comentarios %}
-                                     <li class="list-group-item"> <textarea readonly style="width:100%" rows="2" > {{comentario.comentario}}</textarea></li>
-                                {% endfor%}
-                             {% else %}
-                                <h3> No existen comentario para este post.</h3>
-                             {% endif%}
-                         </ul>
-                     </li>
-                 </ul>
+        {% if user.is_authenticated %}
+            <div id="demo-panel-collapse" class="collapse in">
+                <div class="panel-body">
+                     <ul class="list group">
+                         <li class="list-group-item"> Escribe tu comentario Aquí.
+                             <form method="POST" action="{% url 'articulo:crear-comentario' object.id %}">
+                                 {% csrf_token %}
+                                 {{ form_comentario.comentario}}
+                                 <button type="submit" class="btn-primary"> Comentar</button>
+                             </form>
+                         </li>
+                         <li class="list-group-item">
+                             <ul class="list group">
+                                 {% if comentarios%}
+                                    {% for comentario in comentarios %}
+                                         <li class="list-group-item"> <textarea readonly style="width:100%" rows="2" > {{comentario.comentario}}</textarea></li>
+                                    {% endfor%}
+                                 {% else %}
+                                    <h3> No existen comentario para este post.</h3>
+                                 {% endif%}
+                             </ul>
+                         </li>
+                     </ul>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <a>
+                <h3> Iniciar Sesíon, para comentar en este Post. </h3>
+            </a>
+        {% endif %}
     </div>
     <!--===================================================-->
     <!--End Expanded Panel by default-->

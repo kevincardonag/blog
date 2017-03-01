@@ -49,5 +49,4 @@ class ArticuloManager(models.Manager):
         :param estado:
         :return: lista con articulos
         """
-
         return self.filter(estado=estado)

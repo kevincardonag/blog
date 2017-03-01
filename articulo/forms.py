@@ -11,6 +11,7 @@ class ArticuloForm(forms.ModelForm):
         self.fields['fecha_vencimiento'].widget = \
             DateWidget(attrs={'id': "fecha_vencimiento", 'name': 'fecha_vencimiento'},
                        usel10n=True, bootstrap_version=3)
+        self.fields['tag'].widget.attrs.update({'class': 'many'})
 
     class Meta:
         model = Articulo
