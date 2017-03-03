@@ -1,5 +1,5 @@
-from django.core.urlresolvers import reverse_lazy, reverse
-from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseForbidden
 from django.http import HttpResponse
 from django.contrib import messages
 
@@ -19,8 +19,15 @@ class ArticuloCreateView(CreateView):
     form_class = ArticuloForm
 
     def get_success_url(self):
+        """
+        Autor: Kevin Cardona
+        Fecha: 4 marzo 2017
+        despues de crear un articulo se envia un mensaje de confirmacion, y se redirecciona a la url correspondiente del
+        artiuclo creado
+        :return: redireccion al detalle de un articulo.
+        """
         messages.success(self.request, "Artículo creado")
-        return reverse('articulo:index')
+        return reverse('articulo:mostrar', kwargs={'pk': self.object.id})
 
 
 class Index(ListView):
@@ -33,15 +40,16 @@ class Index(ListView):
     template_name = 'articulo/index.html'
     
     def get_context_data(self, **kwargs):
+        """
+        Autor: Kevin Cardona
+        Fecha: 4 marzo 2017
+        se utiliza el manager del modelo Tag, para consultar cuantos articulos corresponden a cada categoria.
+        :param kwargs:
+        :return: retorna el context, como un diccionario.
+        """
         context = super(Index, self).get_context_data(**kwargs)
         context['info_articulos'] = Tag.custom_objects.obtener_cantidad_articulos_por_categoria()
         return context
-
-    def get(self, request, *args, **kwargs):
-        if self.request.user.is_authenticated():
-            print(self.request.user.username)
-        else: print('no esta autenticado')
-        return super(Index, self).get(request, *args, **kwargs)
 
 
 class ArticuloListView(ListView):
@@ -54,6 +62,14 @@ class ArticuloListView(ListView):
     template_name = 'articulo/listar-articulos.html'
 
     def get_context_data(self, **kwargs):
+        """
+        Autor: Kevin Cardona
+        Fecha: 4 marzo 2017
+        se utiliza el manager del modelo Articulo, para consultar los articulos correspodientes a una categoria y con
+        un estado True
+        :param kwargs:
+        :return: retorna el context, con los articulos de una categoria y estado True.
+        """
         context = super(ArticuloListView, self).get_context_data(**kwargs)
         context['articulos'] = Articulo.custom_objects.buscar_articulos_por_categoria_y_estado(
                                                                     self.kwargs['id_tag'], True)
@@ -70,6 +86,14 @@ class ArticuloDetailView(DetailView):
     template_name = 'articulo/mostrar.html'
 
     def get_context_data(self, **kwargs):
+        """
+        Autor: Kevin Cardona
+        Fecha: 4 Marzo 2017
+        se envia por el contexto 3 parametros, todos los comentarios correspondientes a un articulo, el formulario
+        instaciado de un articulo y el formulario para la creacion de articulos respectivamente.
+        :param kwargs:
+        :return:
+        """
         context = super(ArticuloDetailView, self).get_context_data(**kwargs)
         articulo = self.get_object()
         context['comentarios'] = Comentario.objects.filter(articulo_id=articulo.pk)
@@ -78,7 +102,15 @@ class ArticuloDetailView(DetailView):
         return context
 
     def get(self, request, *args, **kwargs):
-
+        """
+        Autor: Kevin Cardona Giraldo
+        Fecha: 4 marzo 2017
+        metodo encargado de verificar si hay una peticion ajax para el cambio de estado de un articulo.
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: retorna el super del metodo, para la continuacion de los metodos de la clase.
+        """
         if self.request.is_ajax():
             activado = self.request.GET.get('activado')
             articulo = self.get_object()
@@ -103,10 +135,17 @@ class ArticuloUpdateView(UpdateView):
     template_name = 'articulo/index.html'
     form_class = ArticuloForm
 
-    def get_success_url(self,**kwargs):
+    def get_success_url(self, **kwargs):
+        """
+        Autor: Kevin Cardona
+        Fecha: 4 marzo 2017
+        metodo para redireccionar al articulo modificado, y envia un mensaje de exito
+        :param kwargs:
+        :return: retonar una redireccion a mostrar articulo
+        """
         articulo = self.get_object()
         messages.success(self.request, 'Artículo modificado con éxito')
-        return reverse('articulo:mostrar', kwargs={'pk':articulo.id})
+        return reverse('articulo:mostrar', kwargs={'pk': articulo.id})
 
 
 class ComentarioCreateView(CreateView):
@@ -119,13 +158,29 @@ class ComentarioCreateView(CreateView):
     template_name = 'articulo/mostrar.html'
     form_class = ComentarioForm
 
-    def post(self, request, *args, **kwargs):
-        form_comentario = self.form_class(request.POST)
-        if form_comentario.is_valid():
-            id = kwargs['pk']
-            comentario = form_comentario.save(commit=False)
-            comentario.articulo_id = id
-            comentario.user = self.request.user
-            comentario.save()
-            messages.success(request, 'Tu comentario fue publicado')
-            return redirect('articulo:mostrar', id)
+    def get_success_url(self):
+        """
+        Autor: Kevin Cardona
+        Fecha: 4 marzo 2017
+        metodo para redireccionar luego de crear un comentario, se redirecciona al articulo donde fue creado el
+        comentario
+        :return: reverse al detalle de un articulo
+        """
+        id_articulo = self.kwargs['pk']
+        return reverse('articulo:mostrar', kwargs={'pk': id_articulo})
+
+    def form_valid(self, form):
+        """
+        Autor: Kevin Cardona
+        Fecha: 4 marzo 2017
+        metodo form_valid encargado de asignar un usuario y un articulo a un comentario.
+        :param form:
+        :return: retorna el super del metodo, para la continuacion de la clase ComentarioCreateView
+        """
+        try:
+            form.instance.user = self.request.user
+            form.instance.articulo_id = self.kwargs['pk']
+            messages.success(self.request, 'Tu comentario fue publicado')
+            return super(ComentarioCreateView, self).form_valid(form)
+        except:
+            return HttpResponseForbidden()

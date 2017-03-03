@@ -141,10 +141,15 @@
                 <!--================================-->
                 <div class="navbar-content clearfix">
                     <ul class="nav navbar-top-links pull-left">
-                        {% if not user.is_authenticated %}
+                        {% if user.is_authenticated %}
+                            <li class="tgl-menu-btn">
+                               <a href="{% url 'articulo:crear'%}">Crear Artículo</a>
+                            </li>
+                        {% else %}
+
                             <!--Navigation toogle button-->
                             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                           <li class="tgl-menu-btn">
+                            <li class="tgl-menu-btn">
                                <a href="{%url 'usuario:iniciar-sesion' %}"> Iniciar Sesíon </a>
                             </li>
 
@@ -153,17 +158,12 @@
 
                             <!--Navigation toogle button-->
                             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                           <li class="tgl-menu-btn">
+                            <li class="tgl-menu-btn">
                                <a href="{% url 'usuario:registrar' %}"> Regístrarse </a>
                             </li>
 
                             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                             <!--End Navigation toogle button-->
-                        {% else %}
-                             <li class="tgl-menu-btn">
-                               <a href="{% url 'articulo:crear'%}">Crear Artículo</a>
-                            </li>
-
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-top-links pull-right">
@@ -392,7 +392,7 @@
                 imagen: {
                     validators: {
                         file: {
-                            extension: 'jpeg',
+                            extension:'jpeg',
                             type: 'image/jpeg',
                             message: 'Por favor ingrese una imagen en formato JPEG'
                         }
